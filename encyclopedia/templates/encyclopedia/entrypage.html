@@ -1,0 +1,24 @@
+<!-- If the entry does exist, the user should be presented with a page that displays the content of the entry. 
+    The title of the page should include the name of the entry.-->
+
+    {% extends "encyclopedia/layout.html" %}
+
+    {% block title %}
+        Wikipedia: {{ title }}
+    {% endblock %}
+    
+    {% block body %}
+        <!-- Hint: By default, when substituting a value in a Django template, 
+        Django HTML-escapes the value to avoid outputting unintended HTML. 
+        To allow for an HTML string to be outputted, can do so with the safe filter 
+        (as by adding |safe after the variable name substituting). -->
+        {{ markdown2_html|safe }}
+        <!-- Edit Page: On each entry page, the user should be able to click a link to be taken to a page 
+            where the user can edit that entry’s Markdown content in a textarea. -->
+        <form action="{% url 'encyclopedia:edit_page' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{ title }}" name="title">
+            <input type="submit" value="Edit this page">
+        </form>
+    
+    {% endblock %}

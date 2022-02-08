@@ -1,0 +1,33 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}New page creation{% endblock %}
+
+{% block body %}
+
+<h1>Here you can create a New wiki Page entry;</h1>
+
+<!-- with a POST Method, form data fields are included in the body of the form and sent to the server, 
+in this case, redirect to URL 'views.newpage' method -->
+<form action="{% url 'encyclopedia:new_page' %}" method="POST" name="form">
+    <!-- token to avoid 'Forbidden (403) CSRF verification failed'; -->
+    {% csrf_token %}
+      <div>
+        <!-- Users should be able to enter a title for the page; -->
+        <input type="text" name="title" placeholder="Type new page´s title">
+    </div>
+    <h3>Type content for the page;</h3>
+    <div>
+        <!-- In a 'textarea', users should be able to enter the Markdown content for the page 
+        https://www.w3schools.com/tags/tag_textarea.asp  -->
+        <textarea id="content" name="content" rows="10" cols="10" placeholder="Enter new content here"></textarea>
+    <div>
+        <!-- Users should be able to click a button (type="submit") to save their new page. -->
+        <input type="submit" value="Submit & Save">
+    </div>
+</form>
+
+{% endblock %}
+
+
+
+<!-- https://www.w3schools.com/tags/tag_textarea.asp -->

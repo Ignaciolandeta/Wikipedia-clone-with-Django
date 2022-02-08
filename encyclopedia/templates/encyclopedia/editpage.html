@@ -1,0 +1,25 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Page edition
+{% endblock %}
+
+
+{% block body %}
+    <h1>Page Edition</h1>
+<!-- Edit Page: On each entry page, the user should be able to click 
+    a link to be taken to a page where the user can edit that entry’s Markdown content in a textarea. -->
+    <form action="{% url 'encyclopedia:edit_saved' %}" method="POST">
+<!-- The textarea should be pre-populated with 
+    the existing Markdown content of the page. -->
+    {% csrf_token %}
+    <div>
+        <input type="text" name="title" value="{{ title }}">
+    </div>
+    <div>
+        <textarea name="content">{{ markdown2_html }}</textarea>
+    </div>
+    <input type="submit" value="Save & submit">
+</form>
+
+{% endblock %}

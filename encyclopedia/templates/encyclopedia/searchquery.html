@@ -1,0 +1,20 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}Search{% endblock %}
+
+
+{% block body %}
+
+<h1>This is a list of all encyclopedia entries that have your query '{{ q }}' as a substring;</h1>
+    {% if resultlist %}
+    <ul>
+        {% for result in resultlist %}
+        <li><a href="{% url 'encyclopedia:page_entry' result %}">{{ result }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>The query does not match the name of any encyclopedia entry</p>
+    {% endif %}
+
+{% endblock %}
+

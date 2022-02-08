@@ -1,0 +1,47 @@
+<!-- layout.html, defines the broader structure of the page: 
+    each page has a sidebar with a search field, 
+    a link to go home, and links to create a new page or visit a random page -->
+
+
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShsnOriItZN0hgUjHScLYfR2QY1UkhSutn-w&usqp=CAU" alt="wikilogo">
+        <div class="row">
+            <div class="sidebar col-lg-2 col-md-3">
+                <h2>Wiki clone! by Ignacio Landeta </h2>
+                <!-- Search: Allow the user to type a query into the search box in the sidebar to search for an encyclopedia entry. -->
+                <form action="{% url 'encyclopedia:search_query' %}" method="POST">
+                <!-- avoid error Forbidden (403) CSRF verification failed. Request aborted. -->
+                {% csrf_token %}
+                    <input class="search" type="text" name="q" placeholder="Search wiki">
+                </form >
+                <div>
+                    <!-- Links; https://youtu.be/w8q0C-C1js4?t=4044 -->
+                    <a href="{% url 'encyclopedia:index' %}">Home</a>
+                </div>
+                <div>
+                    <a href="{% url 'encyclopedia:new_page' %}">Create New wiki page</a> 
+                </div>
+                <div>
+                    <a href="{% url 'encyclopedia:random' %}">wiki Random page</a>
+                </div>
+                {% block nav %}
+                {% endblock %}
+            </div>
+            <div class="main col-lg-10 col-md-9">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+
+    </body>
+</html>

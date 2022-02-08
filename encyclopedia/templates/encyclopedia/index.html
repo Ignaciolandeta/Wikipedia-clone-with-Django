@@ -1,0 +1,28 @@
+<!--    This template at encyclopedia/templates/encyclopedia/index.html inherits from a base layout.html file 
+and specifies what the page’s title should be, and what should be in the body of the page: 
+in this case, an unordered list of all of the entries in the encyclopedia. -->
+
+
+{% extends "encyclopedia/layout.html" %}
+
+
+{% block title %}
+    Encyclopedia clone page by IL
+{% endblock %}
+
+{% block body %}
+    <h1>Welcome, here is a list of All Pages available ;) </h1>
+    <!-- Index Page: Update index.html such that, 
+        instead of merely listing the names of all pages in the encyclopedia, 
+        user can click on any entry name to be taken directly to that entry page. 
+        https://youtu.be/w8q0C-C1js4?t=4044 -->
+    <ul>
+        {% for entry in entries %}
+            <li><a href="/wiki/{{ entry }}">{{ entry }}</a></li>
+
+        {% endfor %}
+    </ul> 
+
+{% endblock %} 
+
+<!-- alternative code; <li><a href="{% url 'encyclopedia:entrypage' entry %}">{{ entry }}</a></li> https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#std:templatetag-url -->
